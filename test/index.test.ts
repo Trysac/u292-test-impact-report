@@ -1,12 +1,13 @@
 import { describe, expect, it } from "vitest";
-import { greet } from "../src/index.js";
+import * as pkg from "../src/index.js";
 
-describe("greet", () => {
-  it("greets a trimmed name", () => {
-    expect(greet("  Ada ")).toBe("Hello, Ada!");
-  });
-
-  it("rejects an empty name", () => {
-    expect(() => greet("   ")).toThrow(TypeError);
+describe("public API", () => {
+  it("exports all expected functions", () => {
+    expect(typeof pkg.parseDiff).toBe("function");
+    expect(typeof pkg.parseCoverageMap).toBe("function");
+    expect(typeof pkg.fromIstanbul).toBe("function");
+    expect(typeof pkg.impact).toBe("function");
+    expect(typeof pkg.renderReport).toBe("function");
+    expect(typeof pkg.TestImpactError).toBe("function");
   });
 });

@@ -1,30 +1,21 @@
 # Architecture
 
-## Overview
-
-`@trysac/test-impact-report` is a small, dependency-free TypeScript library published to npm as ES modules with type
-declarations. Report which tests a code change impacts from a per-test line coverage map and a unified diff, with Istanbul conversion, rename handling and uncovered-change detection
+`@trysac/test-impact-report` is a pure TypeScript library with no runtime dependencies.
 
 ## Modules
 
-| Module | Responsibility |
-|---|---|
-| `src/index.ts` | Public API. Everything consumers import is exported from here. |
+- `src/index.ts` — core API: diff parsing, coverage map parsing, Istanbul conversion, impact calculation, and report rendering.
+- `src/cli.ts` — node-based CLI wrapper that reads files and invokes the core functions.
 
-Add a row when you add a module. Internal modules are not re-exported unless they are part of the public API.
+## Design decisions
 
-## Boundaries
+- **Per-test coverage maps** provide exact test-file relationships without static analysis.
+- **Unified diff parsing** handles standard git diff format, including renames and binary files.
+- **Old-side line numbers** are used because the coverage map describes the base revision.
 
-- No runtime dependencies by default; any addition is justified in [STACK.md](STACK.md).
-- No I/O at import time. Functions are pure unless their documentation says otherwise.
-- Errors are thrown as built-in error types (`TypeError`, `RangeError`) with actionable messages.
+## Data flow
 
-## Build and distribution
-
-`npm run build` compiles `src/` to `dist/` with `tsconfig.build.json`. Only `dist/` is published
-(`files` in `package.json`).
-
-## Decisions
-
-Architectural decisions are recorded in [decisions/](decisions/), starting with
-[0001](decisions/0001-record-architecture-decisions.md).
+1. Parse unified diff into `FileChange[]`.
+2. Parse coverage JSON into `CoverageMap`.
+3. Compute `ImpactReport` by matching changed old lines against test ranges.
+4. Render markdown or JSON.
