@@ -1,6 +1,5 @@
 # @trysac/test-impact-report
 
-[![npm version](https://img.shields.io/npm/v/@trysac/test-impact-report.svg)](https://www.npmjs.com/package/@trysac/test-impact-report)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Coverage](https://img.shields.io/badge/coverage-100%25-brightgreen.svg)](https://github.com/Trysac/u292-test-impact-report)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.9-blue.svg)](https://www.typescriptlang.org/)
@@ -9,9 +8,15 @@ Report which tests a code change impacts by joining a unified diff with a per-te
 
 ## Installation
 
-```bash
-npm install @trysac/test-impact-report
+Not published to npm yet. Build it from a clone, then install it from the local path:
+
+```sh
+git clone https://github.com/Trysac/u292-test-impact-report.git
+cd u292-test-impact-report && npm ci && npm run build
+cd ../your-project && npm install ../u292-test-impact-report
 ```
+
+Imports keep the package name: `import { ... } from "@trysac/test-impact-report"`.
 
 ## Usage
 
